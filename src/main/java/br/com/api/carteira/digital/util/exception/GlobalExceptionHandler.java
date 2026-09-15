@@ -1,8 +1,9 @@
 package br.com.api.carteira.digital.util.exception;
 
 import br.com.api.carteira.digital.dto.ErroResponseDTO;
-import br.com.api.carteira.digital.dto.ValidacaoErroResponseDTO;
+import br.com.api.carteira.digital.security.ValidacaoErroResponseDTO;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -95,6 +96,21 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
+                .body(erro);
+    }
+
+    @ExceptionHandler(CarteiraNaoEncontradaException.class)
+    public ResponseEntity<ErroResponseDTO> tratarCarteiraNaoEncontrada(CarteiraNaoEncontradaException exception, HttpServletRequest request){
+        ErroResponseDTO erro = new ErroResponseDTO(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                exception.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
                 .body(erro);
     }
 

@@ -6,12 +6,12 @@ import br.com.api.carteira.digital.model.CarteiraEntity;
 import br.com.api.carteira.digital.model.UsuarioEntity;
 import br.com.api.carteira.digital.repository.CarteiraRepository;
 import br.com.api.carteira.digital.repository.UsuarioRepository;
+import br.com.api.carteira.digital.util.enums.Role;
 import br.com.api.carteira.digital.util.enums.StatusCarteira;
 import br.com.api.carteira.digital.util.enums.StatusUsuario;
 import br.com.api.carteira.digital.util.exception.CpfJaCadastradoException;
 import br.com.api.carteira.digital.util.exception.EmailJaCadastradoException;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -44,6 +44,7 @@ public class UsuarioService {
                 .cpf(cadastro.cpf())
                 .senha(passwordEncoder.encode(cadastro.senha()))
                 .status(StatusUsuario.ATIVO)
+                .role(Role.USER)
                 .dataCriacao(LocalDateTime.now())
                 .build();
         UsuarioEntity usuarioNovo = usuarioRepository.save(usuario);

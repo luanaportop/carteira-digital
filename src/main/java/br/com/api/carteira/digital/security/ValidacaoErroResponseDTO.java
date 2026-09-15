@@ -1,4 +1,4 @@
-package br.com.api.carteira.digital.dto;
+package br.com.api.carteira.digital.security;
 
 import java.time.LocalDateTime;
 import java.util.Map;

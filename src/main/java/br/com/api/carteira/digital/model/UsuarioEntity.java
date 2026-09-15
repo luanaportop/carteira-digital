@@ -1,5 +1,6 @@
 package br.com.api.carteira.digital.model;
 
+import br.com.api.carteira.digital.util.enums.Role;
 import br.com.api.carteira.digital.util.enums.StatusUsuario;
 import jakarta.persistence.*;
 import lombok.*;
@@ -40,4 +41,8 @@ public class UsuarioEntity {
 
     @Column(name = "data_atualizacao")
     private LocalDateTime dataAtualizacao;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
 }
